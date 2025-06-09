@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package net.staszek.productivecows;
 
 import java.util.List;
 import java.util.Set;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Neo's config APIs
-@EventBusSubscriber(modid = ExampleMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ProductiveCows.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class Config
 {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
@@ -32,9 +32,12 @@ public class Config
             .define("magicNumberIntroduction", "The magic number is... ");
 
     // a list of strings that are treated as resource locations for items
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
+    private static final ModConfigSpec.ConfigValue<List<String>> ITEM_STRINGS = BUILDER
             .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
+            .define("items", List.of("minecraft:iron_ingot"), obj -> {
+                if (!(obj instanceof List<?> list)) return false;
+                return list.stream().allMatch(element -> element instanceof String && Config.validateItemName((String) element));
+            });
 
     static final ModConfigSpec SPEC = BUILDER.build();
 

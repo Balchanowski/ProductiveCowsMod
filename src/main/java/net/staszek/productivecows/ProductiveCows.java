@@ -53,6 +53,14 @@ public class ProductiveCows {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.Base_bucket_upgrade);
+            event.accept(ModItems.Drip_bucket_upgrade);
+            event.accept(ModItems.Stream_bucket_upgrade);
+            event.accept(ModItems.Blast_bucket_upgrade);
+            event.accept(ModItems.Void_bucket_upgrade);
+            event.accept(ModItems.Speed_bucket_upgrade);
+            event.accept(ModItems.Speedier_bucket_upgrade);
+            event.accept(ModItems.Speediest_bucket_upgrade);
+            event.accept(ModItems.Cream_bucket_upgrade);
         }
     }
 
